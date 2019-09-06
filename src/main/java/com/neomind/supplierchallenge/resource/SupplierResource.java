@@ -1,28 +1,24 @@
 package com.neomind.supplierchallenge.resource;
 
-import java.util.Collection;
-
+import com.neomind.supplierchallenge.entity.Supplier;
+import com.neomind.supplierchallenge.exception.SupplierNotFoundException;
+import com.neomind.supplierchallenge.exception.UnexpectedException;
+import com.neomind.supplierchallenge.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
+import org.springframework.web.bind.annotation.*;
 
-import com.neomind.supplierchallenge.entity.Supplier;
-import com.neomind.supplierchallenge.exception.NotFoundException;
-import com.neomind.supplierchallenge.service.SupplierService;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/suppliers")
 public class SupplierResource {
 	
-	@Autowired
+    @Autowired
     SupplierService service;
 
     @GetMapping
@@ -30,28 +26,28 @@ public class SupplierResource {
     public Collection<Supplier> findAll() {
         return service.findAll();
     }
-    
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Supplier findById(@PathVariable("id") Long id) throws NotFoundException {
-        return service.findById(id);
-    }
-    
+
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void create(@RequestBody Supplier supplier) {
         service.save(supplier);
     }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Supplier findById(@PathVariable("id") Long id) throws SupplierNotFoundException {
+        return service.findById(id);
+    }
     
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable("id") Long id, @RequestBody Supplier supplier) throws NotFoundException {
+    public void update(@RequestBody Supplier supplier, @PathVariable("id") Long id) throws SupplierNotFoundException {
         service.update(id, supplier);
     }
     
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Long id) throws NotFoundException {
+    public void delete(@PathVariable("id") Long id) throws SupplierNotFoundException {
         service.delete(id);
     }
 
