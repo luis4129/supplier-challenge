@@ -13,17 +13,12 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({TransactionSystemException.class})
+    @ExceptionHandler(TransactionSystemException.class)
     public ResponseEntity<ErrorResponse> handleTransactionSystemException(TransactionSystemException ex) {
         ConstraintViolationException constraintViolationException = (ConstraintViolationException) ex.getCause().getCause();
         ConstraintViolation constraintViolation = constraintViolationException.getConstraintViolations().stream().findFirst().orElseThrow(UnexpectedException::new);
 
         return ResponseEntity.badRequest().body(new ErrorResponse(constraintViolation.getMessage()));
-    }
-
-    @ExceptionHandler({Exception.class})
-    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
-        return ResponseEntity.badRequest().body(new ErrorResponse(ex.getMessage()));
     }
 
     public static class ErrorResponse {
