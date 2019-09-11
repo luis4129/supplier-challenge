@@ -1,0 +1,23 @@
+<div class="jumbotron mr-auto mb-4 pt-3 pb-4" id="supplierForm" >    
+     <form  action="" class="form" name="myform" > 
+         <div class="form-group ">
+             <label for="">Nome</label>
+             <input type="text" class="form-control" name="name" ng-model="supplier.name" required autofocus>
+         </div>
+         <div class="form-group">
+             <label for="">E-mail</label>
+             <input type="email" class="form-control " name="email" ng-model="supplier.email" required autofocus >
+         </div>
+         <div class="form-group">
+            <label for="">CNPJ</label>
+            <input type="cnpj" cnpj ng-minlength="14" class="form-control " name="email" ng-model="supplier.cnpj" required autofocus >
+        </div>
+         <div class="form-group">
+             <label for="">Comentário</label>
+             <textarea name="comment" id="" class="form-control" ng-model="supplier.comment" autofocus ></textarea>
+         </div>
+         <div class="input-group mt-3">
+            <button type="button" ng-click="closeDialog(supplier)" class="btn btn-primary ml-1" ng-disabled="myform.$invalid">Submit</button>
+         </div>
+     </form>
+ </div>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Cadastro de Fornecedores</title>        
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body ng-app="supplier-component">
+        <div class="container wrapper" ng-controller="SupplierController">
+            <h1 class="text-center">Cadastro de Fornecedores</h1>
+            <nav class="navbar navbar-default">
+                <div class="d-flex" style="width:100%;">
+                    <div class="alert alert-default navbar-brand search-box">
+                        <button class="btn btn-primary" ng-click="showInsertDialog($event)">Adicionar Fornecedor </button>
+                    </div>
+                    <div class="alert alert-default input-group search-box">
+                        <div class="input-group-btn" style="width:100%;">
+                            <input type="text" class="form-control" placeholder="Procurar fornecedor..." ng-model="search">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+    
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>CNPJ</th>                        
+                        <th>Comentário</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="supplier in suppliers| filter:search">
+                        <td>{{supplier.name}}</td>
+                        <td>{{supplier.email}}</td>
+                        <td>{{supplier.cnpj}}</td>
+                        <td>{{supplier.comment}}</td>
+                        <td>
+                            <button class="btn btn-secondary" ng-click="showUpdateDialog($event, supplier)" title="Edit">Edit</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="delete(supplier)" title="Delete">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="supplier.module.js"></script>
+        <script src="service/supplier.service.js"></script>
+        <script src="controller/supplier.controller.js"></script>
+        <script src="directive/cnpj.directive.js"></script>
+        
+    </body>    
+</html>

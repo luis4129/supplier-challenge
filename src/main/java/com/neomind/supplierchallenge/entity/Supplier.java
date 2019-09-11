@@ -7,8 +7,6 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-
 @Entity
 public class Supplier {
 	
@@ -16,15 +14,14 @@ public class Supplier {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@CNPJ(message = "CNPJ do fornecedor não é válido.")
 	@NotNull(message = "CNPJ do fornecedor não informado")
 	private String cnpj;
 
 	@NotNull(message = "Nome do fornecedor não informado.")
 	private String name;
 
-	@NotNull(message = "E-mail do fornecedor não informado.")
 	@Email(message = "E-mail do fornecedor não é válido")
+	@NotNull(message = "E-mail do fornecedor não informado.")
 	private String email;
 
 	private String comment;

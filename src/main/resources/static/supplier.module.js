@@ -1,0 +1,1 @@
+angular.module("supplier-component", ['ngMaterial', 'ngMessages']);
